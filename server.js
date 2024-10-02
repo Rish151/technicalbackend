@@ -9,9 +9,9 @@ const adminRoute = require("./router/admin-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
 
-//For Corse policy
+// Use CORS origin from environment variable or fallback to localhost for development
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
   methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credentials: true,
 };
@@ -22,10 +22,10 @@ app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
 app.use("/api/data", serviceRoute);
 
-//define the admin route
+// Define the admin route
 app.use("/api/admin", adminRoute);
 
-app.use(errorMiddleware); //calling error middleware
+app.use(errorMiddleware); // Calling error middleware
 
 const PORT = process.env.PORT || 5000;
 
